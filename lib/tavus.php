@@ -13,10 +13,6 @@ $dotenv->load();
 // Get the POST data
 $data = json_decode(file_get_contents('php://input'), true);
 
-$name = $data['name'] ?? 'Khan';
-$email = $data['email'] ?? 'khan@gmail.com';
-$textContent = $data['textContent'] ?? 'This is my document';
-
 // Determine environment and get appropriate API keys
 $environment = $_ENV['APP_ENV'] ?? 'local';
 $apiKeys = [];
@@ -31,12 +27,12 @@ if ($environment === 'live') {
 
 // Tavus API configuration
 $requestData = [
-    'replica_id' => 'r0b262e2065e',
-    'persona_id' => 'p2fbd605',
+    'replica_id' => 'rbb0f535dd',
+    'persona_id' => 'pd43ffef',
     'callback_url' => 'https://e8f9-182-184-138-168.ngrok-free.app/lib/tavus_wh.php',
-    'conversation_name' => 'A Meeting with ' . $name,
-    'conversational_context' => 'You are about to talk to ' . $name . '. this my document you will explain this => ' . $textContent,
-    'custom_greeting' => 'Hi ' . $name ,
+    'conversation_name' => 'Math Tutoring Session',
+    'conversational_context' => 'You are a friendly and patient virtual math tutor, guiding a 5th-grade student through various math concepts. Your goal is to make learning fun and engaging by explaining concepts in a simple, step-by-step manner, using real-world examples, encouragement, and interactive questions. Adapt your responses to the student’s level, ensuring they understand each step before moving forward.',
+    'custom_greeting' => 'Hey there! I’m your math tutor, ready to make learning fun and easy. Let’s tackle your math questions together—step by step! What would you like help with today?',
     'properties' => [
         'max_call_duration' => 3600,
         'participant_left_timeout' => 60,
@@ -47,6 +43,7 @@ $requestData = [
         'language' => 'english',
     ],
 ];
+
 
 // Try each API key until successful or exhausted
 foreach ($apiKeys as $index => $apiKey) {
