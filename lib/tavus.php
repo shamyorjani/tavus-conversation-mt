@@ -4,6 +4,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Dotenv\Dotenv;
 
 header('Content-Type: application/json');
+header("Permissions-Policy: microphone=(), camera=()");
 
 // Load environment variables
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
@@ -12,9 +13,9 @@ $dotenv->load();
 // Get the POST data
 $data = json_decode(file_get_contents('php://input'), true);
 
-$name = 'Khan';
-$email = 'khan@gmail.com';
-$textContent = 'This is my document';
+$name = $data['name'] ?? 'Khan';
+$email = $data['email'] ?? 'khan@gmail.com';
+$textContent = $data['textContent'] ?? 'This is my document';
 
 // Determine environment and get appropriate API keys
 $environment = $_ENV['APP_ENV'] ?? 'local';
